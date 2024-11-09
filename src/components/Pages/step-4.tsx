@@ -33,7 +33,7 @@ const StepFive: FC = () => {
       <span className="w-16 mb-8">
         <ThankYouIcon />
       </span>
-      <h1 className="text-[2rem] font-bold mb-4">Thank you</h1>
+      <h1 className="text-[2rem] font-bold mb-4" data-cy="thank-you-title">Thank you</h1>
       <p className="text-coolGray text-center">
         Thanks for confirming your subscription! We hope you have fun using our
         platform. If you ever need support, please feel free to email us at{' '}
@@ -107,7 +107,7 @@ export default function StepFour() {
     return recurrencies[recurrency] || recurrencies.MONTHLY
   }
 
-  const planCategoryPrice = () => {
+  const planCategoryPrice = (): number => {
     const { plan } = formState
     const categoryPlan = planCategories.find(
       category => category.value === plan.category,
@@ -118,7 +118,7 @@ export default function StepFour() {
         plan.recurrency.toLowerCase() as keyof typeof categoryPlan.price
       ]
 
-    return price
+    return price || 0
   }
 
   const addedAddons = formState.addons
@@ -128,16 +128,20 @@ export default function StepFour() {
   const isPlanRecurrencyMonthly = formState.plan.recurrency === 'MONTHLY'
 
   const addedAddonsTotalPrice = addedAddons.reduce((prev, curr) => {
+    console.log({ curr, prev })
     return isPlanRecurrencyMonthly
       ? curr.price.monthly + prev
       : curr.price.yearly + prev
   }, 0)
+
+  console.log({ addedAddons })
 
   return isFinishedState ? (
     <StepFive />
   ) : (
     <>
       <Heading
+        id="finishing-up-title"
         title="Finishing up"
         paragraph="Double-check everything looks OK before confirming."
       />
@@ -161,6 +165,7 @@ export default function StepFour() {
                 size="link"
                 onClick={() => router.push('/step-2')}
                 className="font-normal text-sm text-coolGray p-0 underline hover:text-purpleBlue"
+                data-cy="change-plan"
               >
                 Change
               </Button>
@@ -201,7 +206,7 @@ export default function StepFour() {
 
           <span className="font-bold text-xl text-purpleBlue">
             +$
-            {addedAddonsTotalPrice}/{isPlanRecurrencyMonthly ? 'mo' : 'yr'}
+            {planCategoryPrice() + addedAddonsTotalPrice}/{isPlanRecurrencyMonthly ? 'mo' : 'yr'}
           </span>
         </motion.div>
 
@@ -212,6 +217,7 @@ export default function StepFour() {
             size="link"
             className="text-coolGray"
             onClick={() => router.push('/step-3')}
+            data-cy="step-4-back"
           >
             Go back
           </Button>
@@ -221,6 +227,7 @@ export default function StepFour() {
             onClick={handleSubmit(onSubmit)}
             disabled={!isValid}
             className="bg-purpleBlue hover:bg-purpleBlueHover"
+            data-cy="step-4-submit"
           >
             Confirm
           </Button>

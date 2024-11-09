@@ -47,6 +47,7 @@ export default function StepOne() {
   return (
     <Fragment>
       <Heading
+        id="personal-info-title"
         title="Personal info"
         paragraph="Please provide your name, email address, and phone number."
       />
@@ -79,6 +80,7 @@ export default function StepOne() {
                 type="email"
                 error={errors.email?.message}
                 placeholder="e.g. stephenking@lorem.com"
+                mask="*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{2,6}][.*{1,2}]"
               />
             )}
           />
@@ -95,6 +97,7 @@ export default function StepOne() {
                 inputMode="tel"
                 error={errors.phone?.message}
                 placeholder="e.g. +1 234 567 890"
+                mask="+1 999 999 9999"
               />
             )}
           />
@@ -105,7 +108,7 @@ export default function StepOne() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ type: 'spring', delay: 0.3 }}
         >
-          <Button type="submit" onClick={handleSubmit(onSubmit)}>
+          <Button type="submit" onClick={handleSubmit(onSubmit)} data-cy="step-1-submit">
             Next Step
           </Button>
         </motion.div>

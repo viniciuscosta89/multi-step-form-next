@@ -8,12 +8,15 @@ import {
 } from '@/components/ui/form'
 import { Input as InputShad } from '@/components/ui/input'
 import type { InputHTMLAttributes } from 'react'
+import { useHookFormMask, withMask } from 'use-mask-input';
+
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string
   label: string
   error?: string
   placeholder: string
+  mask?: string
 }
 
 export default function Input({
@@ -21,12 +24,13 @@ export default function Input({
   label,
   error,
   placeholder,
+  mask,
   ...props
 }: InputProps) {
   return (
     <FormItem className="flex flex-col gap-1 lg:gap-2">
       <div className="flex justify-between">
-        <FormLabel data-cy={id} className="text-xs lg:text-base font-normal">
+        <FormLabel data-cy={`${id}-label`} className="text-xs lg:text-base font-normal">
           {label}
         </FormLabel>
 
@@ -34,6 +38,7 @@ export default function Input({
           className={`text-red-400 text-sm transition duration-300 h-5 ${
             error ? 'opacity' : 'opacity-0'
           }`}
+          data-cy={`${id}-error`}
         >
           {error || ''}
         </FormDescription>
@@ -46,6 +51,7 @@ export default function Input({
           }`}
           placeholder={placeholder}
           {...props}
+          ref={mask && withMask(mask)}
         />
       </FormControl>
     </FormItem>

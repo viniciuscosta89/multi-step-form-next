@@ -38,6 +38,7 @@ export default function Form({ children }: FormProps) {
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-6 lg:w-[450px] h-full"
+        data-cy="form"
       >
         {children}
       </form>

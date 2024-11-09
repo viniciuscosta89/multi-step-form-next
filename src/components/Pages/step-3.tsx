@@ -103,6 +103,7 @@ export default function StepThree() {
   return (
     <>
       <Heading
+        id="pick-addons-title"
         title="Pick add-ons"
         paragraph="Add-ons help enhance your gaming experience."
       />
@@ -132,14 +133,14 @@ export default function StepThree() {
                               <FormControl>
                                 <Fragment>
                                   <FormLabel
-                                    htmlFor={addonItem.name}
-                                    className={`px-4 py-3 lg:py-5 rounded-lg flex flex-row items-center gap-4 lg:gap-6 border transition duration-300 hover:cursor-pointer hover:border-purpleBlue ${isAddonSelected(field, addonItem)}`}
+                                    htmlFor={addonItem.value}
+                                    className={`px-4 py-3 lg:py-5 rounded-lg flex flex-row items-center gap-4 lg:gap-6 border transition duration-300 hover:cursor-pointer hover:border-purpleBlue ${isAddonSelected(field, addonItem)}`}                                    
                                   >
                                     <Checkbox
                                       checked={field.value?.includes(
                                         addonItem.value,
                                       )}
-                                      id={addonItem.name}
+                                      id={addonItem.value}
                                       className="data-[state=unchecked]:border-coolGray data-[state=checked]:bg-purpleBlue data-[state=checked]:border-purpleBlue w-5 h-5 transition duration-300"
                                       onCheckedChange={checked => {
                                         return checked
@@ -153,7 +154,7 @@ export default function StepThree() {
                                                   value !== addonItem.value,
                                               ),
                                             )
-                                      }}
+                                      }}                                      
                                     />
                                     <div className="flex gap-2 justify-between items-center w-full hover:cursor-pointer">
                                       <div className="flex flex-col gap-1">
@@ -206,6 +207,7 @@ export default function StepThree() {
             size="link"
             className="text-coolGray"
             onClick={() => router.push('/step-2')}
+            data-cy="step-3-back"
           >
             Go back
           </Button>
@@ -214,6 +216,7 @@ export default function StepThree() {
             type="submit"
             onClick={handleSubmit(onSubmit)}
             disabled={!isValid}
+            data-cy="step-3-submit"
           >
             Next Step
           </Button>

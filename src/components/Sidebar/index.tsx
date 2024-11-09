@@ -26,7 +26,7 @@ const steps = [
   },
 ]
 
-const activeClasses = 'bg-pastelBlue text-primary border-pastelBlue'
+export const sidebarActiveClasses = 'bg-pastelBlue text-primary border-pastelBlue'
 
 export default function Sidebar() {
   const pathname = usePathname()
@@ -36,11 +36,11 @@ export default function Sidebar() {
       <div>
         <ul className="flex lg:flex-col gap-4 lg:gap-8 justify-center">
           {steps.map(({ label, number, url }) => (
-            <li key={label}>
+            <li key={label} data-cy={`step-${number}`}>
               <Link href={url} className="flex gap-4 items-center group">
                 <span
                   className={`w-8 h-8 flex items-center justify-center font-bold text-sm rounded-full border-[1px] transition duration-300 ease-in-out group-hover:bg-pastelBlue group-hover:text-primary group-hover:border-pastelBlue ${
-                    pathname === url ? activeClasses : 'border-white'
+                    pathname === url ? sidebarActiveClasses : 'border-white'
                   }`}
                 >
                   {number}

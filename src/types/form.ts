@@ -14,7 +14,7 @@ const PlanRecurrencySchema = z.enum(['MONTHLY', 'YEARLY']);
 
 export const formSchema = z.object({
   name: z.coerce.string().min(1, { message: 'This field is required' }),
-  email: z.coerce.string().min(1, { message: 'This field is required' }),
+  email: z.coerce.string().min(1, { message: 'This field is required' }).email(),
   phone: z.coerce.string().min(1, { message: 'This field is required' }),
   plan: z.object({
     category: PlanCategorySchema,

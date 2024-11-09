@@ -72,6 +72,7 @@ export default function StepTwo() {
   return (
     <>
       <Heading
+        id="select-plan-title"
         title="Select your plan"
         paragraph="You have the option of monthly or yearly billing."
       />
@@ -115,6 +116,7 @@ export default function StepTwo() {
                                     ? 'border-purpleBlue bg-alabaster'
                                     : 'border-[#D6D9E6]'
                                 } hover:cursor-pointer hover:border-purpleBlue`}
+                                data-cy={`plan-${label.toLowerCase()}`}
                               >
                                 <span className="w-10">{icon}</span>
 
@@ -183,6 +185,7 @@ export default function StepTwo() {
                     className={`transition duration-300 ${
                       isRecurrencyYearly ? 'text-coolGray' : ''
                     }`}
+                    data-cy="recurrency-monthly"
                   >
                     Monthly
                   </FormLabel>
@@ -195,12 +198,14 @@ export default function StepTwo() {
                         handleRecurrency()
                       }}
                       className="data-[state=unchecked]:bg-primary"
+                      data-cy="recurrency-switch"
                     />
                   </FormControl>
                   <FormLabel
                     className={`transition duration-300 ${
                       isRecurrencyYearly ? '' : 'text-coolGray'
                     }`}
+                    data-cy="recurrency-yearly"
                   >
                     Yearly
                   </FormLabel>
@@ -227,11 +232,12 @@ export default function StepTwo() {
             size="link"
             className="text-coolGray"
             onClick={() => router.push('/')}
+            data-cy="step-2-back"
           >
             Go back
           </Button>
 
-          <Button type="submit" onClick={handleSubmit(onSubmit)}>
+          <Button type="submit" onClick={handleSubmit(onSubmit)} data-cy="step-2-submit">
             Next Step
           </Button>
         </div>
